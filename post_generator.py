@@ -19,6 +19,27 @@ def generate_post(length, language, tag):
     return response.content
 
 
+def generate_image_prompt(post_content, tag):
+    prompt = f'''
+    Based on the following LinkedIn post, generate a detailed image prompt that can be used with AI image generators like DALL-E, Midjourney, or Stable Diffusion.
+    
+    LinkedIn Post:
+    {post_content}
+    
+    Topic: {tag}
+    
+    Create a professional, eye-catching image prompt that:
+    - Relates to the post's main theme
+    - Is suitable for LinkedIn (professional context)
+    - Includes visual style, composition, and mood
+    - Is concise but descriptive (2-3 sentences max)
+    
+    Return only the image prompt, no preamble or explanation.
+    '''
+    response = llm.invoke(prompt)
+    return response.content
+
+
 def get_prompt(length, language, tag):
     length_str = get_length_str(length)
 

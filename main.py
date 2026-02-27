@@ -1,6 +1,6 @@
 import streamlit as st
 from few_shot import FewShotPosts
-from post_generator import generate_post
+from post_generator import generate_post, generate_image_prompt
 
 
 # Options for length and language
@@ -34,7 +34,16 @@ def main():
     # Generate Button
     if st.button("Generate"):
         post = generate_post(selected_length, selected_language, selected_tag)
+        st.subheader("Generated Post:")
         st.write(post)
+        
+        # Generate image prompt
+        with st.spinner("Generating image prompt..."):
+            image_prompt = generate_image_prompt(post, selected_tag)
+        
+        st.subheader("AI Image Prompt:")
+        st.info(image_prompt)
+        st.caption("Copy this prompt and use it with DALL-E, Midjourney, Stable Diffusion, or any AI image generator.")
 
 
 # Run the app
